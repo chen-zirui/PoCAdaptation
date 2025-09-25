@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2025 PoCEffectiveness
+ * All rights reserved.
+ */
+
+
 class Color:
     RESET = "\033[0m"
     RED = "\033[91m"

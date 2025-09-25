@@ -1,8 +1,14 @@
+/*
+ * Copyright (c) 2025 PoCEffectiveness
+ * All rights reserved.
+ */
+
 import re
 from typing import Dict, List
 from collections import defaultdict
 from logger import log  
 from llm_client import LLMClient
+
 
 
 

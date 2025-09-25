@@ -184,7 +184,7 @@ All intermediate logs and final adapted exploits will be saved under the corresp
 To run **batch migration experiments** (including **ablation variants**) across all CVEs and multiple adaptation strategies, execute the following script:
 
 ```
-python scripts/run.py
+python Script/run.py
 ```
 
 > ⚠️ **Note:** Due to the inherent randomness of LLMs, we invited a third party to conduct independent reproduction experiments using the exact environment setup described in this README. Results show that running the process twice consistently yields over 95% agreement with the outcomes reported in the paper, demonstrating strong stability and reproducibility.

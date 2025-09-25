@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 PoCEffectiveness
+ * All rights reserved.
+ */
+
+
+
 import multiprocessing
 from version_analyzer import CVEProcessor
 from version_selector import select_nearest_reproduced_version_from_lists

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 PoCEffectiveness
+ * All rights reserved.
+ */
+
 import difflib
 import os
 from logger import log
@@ -198,11 +203,8 @@ class DiffManager:
         relevant_score = sum(1 for cause in causes if cause in content_str)
 
         score = 0.0
-        high_sim_found = False
-        mid_sim_found = False
 
         plus_blocks = self._group_continuous_blocks(diff.content, '+')  # [(start_idx, end_idx, block_lines)]
-
             
         for start, end, block_lines in plus_blocks:
             if not any(any(cause in line for cause in causes) for line in block_lines):
@@ -222,19 +224,18 @@ class DiffManager:
 
 
             
-            if similarity > 0.7 and not high_sim_found and not mid_sim_found:
-                score += 4.0
-                high_sim_found = True
-
-            elif similarity > 0.7 and not high_sim_found and mid_sim_found:
-                score += 2.0
-                high_sim_found = True
-
-            elif similarity > 0.5 and not mid_sim_found and not high_sim_found:
-                score += 2.0
-                mid_sim_found = True
-
-        return score * relevant_score
+            if similarity > 0.9:
+                score = 10
+            elif similarity > 0.8 and score < 8:
+                score = 8
+            elif similarity > 0.7 and score < 6:
+                score = 6
+            elif similarity > 0.6 and score < 4:
+                score = 4
+            elif similarity > 0.5 and score < 2:
+                score = 2
+                
+        return score
     
 
     def get_diff_brief_by_id(self, diff_id: int) -> Tuple[str, str, List[str]]:
@@ -285,6 +286,10 @@ class DiffManager:
                 pattern_def = rf"\b\w[\w\s<>,]*\s+{cause}\s*\("
                 if re.search(pattern_def, content_str) and match == cause:
                     score += 10.0
+                elif re.search(pattern_def, content_str):
+                    score += 2.0
+                elif cause in content_str:
+                    score += 1.0
 
             if diff.file.endswith('.java'):
                 score += self._score_semantic_similarity(diff, causes)
@@ -312,17 +317,59 @@ class DiffManager:
 
 
             for cause in causes:
+
+
                 if error_type == "MissingPackage" or error_type == "MissingClass" or error_type == "TestFailure":
                     if diff.diff_type != DiffType.NEW_FILE and \
                         os.path.basename(diff.file) == f"{cause}.java" and \
                         ("package" in content_str or "parameters" in content_str):
                         score += 10.0
+                    elif cause in content_str:
+                        score += 1.0
+
+
+
                 elif error_type == "MissingMethod": 
-                    # get method name from group_key
                     match = re.search(r"method\s+(\w+)\(", group_key)                    
                     pattern_def = rf"\b\w[\w\s<>,]*\s+{cause}\s*\("
                     if re.search(pattern_def, content_str) and match == cause:
                         score += 10.0
+                    elif re.search(pattern_def, content_str):
+                        score += 2.0
+                    elif cause in content_str:
+                        score += 1.0
+
+
+
+                elif error_type == "TypeMismatch":
+                    m = re.search(r"method\s+([A-Za-z_]\w*)\s*\(", group_key)
+                    method_name = m.group(1) if m else None
+                    cause_re = re.escape(cause)
+                    sig_pattern = None
+                    if method_name:
+                        sig_pattern = re.compile(
+                            rf"\b[\w<>\[\],\s]+\s+{re.escape(method_name)}\s*\([^)]*\)",
+                            flags=re.MULTILINE
+                        )
+                    matched_in_sig = False
+                    precise_match_found = False
+                    if sig_pattern:
+                        for sig_match in sig_pattern.finditer(content_str):
+                            sig_text = sig_match.group(0)
+                            matched_in_sig = True
+                            if re.search(rf"\b{cause_re}\b", sig_text):
+                                precise_match_found = True
+                                break
+
+                    generic_pattern = re.compile(rf"<[^>]*\b{cause_re}\b[^>]*>", flags=re.MULTILINE)
+                    if not precise_match_found and generic_pattern.search(content_str):
+                        precise_match_found = True
+                    if precise_match_found:
+                        score += 10.0
+                    elif matched_in_sig:
+                        score += 2.0
+                    elif re.search(rf"\b{cause_re}\b", content_str):
+                        score += 1.0
 
             if diff.file.endswith('.java'):
                 score += self._score_semantic_similarity(diff, causes)

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2025 PoCEffectiveness
+ * All rights reserved.
+ */
+
+
 import os
 import re
 from openai import OpenAI

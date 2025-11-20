@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2025 PoCEffectiveness
- * All rights reserved.
- */
 
 from logger import log
 from typing import Optional

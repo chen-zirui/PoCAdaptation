@@ -1,5 +1,18 @@
 # PoCAdaptation
 
+
+## ⚠️ Disclaimer
+
+This project is intended for **research and academic purposes only**.
+
+ All PoCs are derived from publicly available sources.
+
+ Please ensure any testing is done in isolated, controlled environments.
+
+ **Do not** use these PoCs in production or against systems you do not own or have explicit permission to test.
+
+
+
 ## 🔍 Overview
 
 **PoCAdaptation** is a curated repository of **adapted Proof-of-Concept (PoC) exploits** migrated across multiple versions of real-world Java libraries. It aims to identify **false negatives** in existing CVE reports—specifically, vulnerable versions that were previously undetected or misclassified—by adapting PoCs that initially fail due to software evolution.
@@ -65,15 +78,57 @@ In many cases, the original PoCs no longer work in certain library versions—ev
 
 ``````
 
-## 
+## ▶️ Setup Steps of Diffploit
 
-## ▶️ How to Reproduce Diffploit
+> ⚠️ *Diffploit is containerized via Docker.*
 
-> ⚠️ *Diffploit is containerized via Docker. A Docker image will be released after the review process to support full reproducibility.*
 
-This section describes the **local environment setup** required to run Diffploit.
+### 📥 Step 1: Pull the Diffploit Image
 
-### ✅ Prerequisites
+Pull the Diffploit image from DockerHub:
+
+```bash
+docker pull <IMAGE_NAME_FROM_DOCKERHUB>
+```
+
+### 🚀 Step 2: Start the Diffploit Container
+
+Run the container and automatically normalize the internal directory layout:
+
+
+```bash
+docker run -it --name Diffploit \
+  <IMAGE_NAME_FROM_DOCKERHUB> \
+  bash -c "rm -rf /PoCAdaptation && mv /PoCAdaptation-unmount /PoCAdaptation && exec bash"
+```
+
+After execution, you will enter an interactive shell in the Diffploit environment.
+All reproducibility procedures can now be performed inside the container.
+
+
+### 🔑 Step 3: LLM API Key Setup
+
+We provide a temporary **DeepSeek API key** for review purposes. To use it, modify the following line in `Diffploit/llm_client.py`:
+
+```
+self.api_key = "Your_API_Key_Here"  # Replace with your actual API key
+```
+
+Replace it with:
+
+```
+self.api_key = "sk-13da5a223e92430eb79d38eadda31699"
+```
+
+> 🔒 *This key is only intended for **review use**. It may be revoked after the review process.*
+
+
+---
+
+
+The following part describes the **local environment setup** required to run Diffploit.
+
+### ✅ Step 1: Prerequisites
 
 Before running `Diffploit`, please make sure the following dependencies are properly installed (Linux is preferred):
 
@@ -110,9 +165,7 @@ conda activate diffploit-env
 pip install -r requirements.txt
 ```
 
-------
-
-## 🔑 LLM API Key Setup
+### 🔑 Step 2: LLM API Key Setup
 
 We provide a temporary **DeepSeek API key** for review purposes. To use it, modify the following line in `Diffploit/llm_client.py`:
 
@@ -130,7 +183,7 @@ self.api_key = "sk-13da5a223e92430eb79d38eadda31699"
 
 
 
-## 🔧 Step 1: Set Absolute Path to Project Root
+### 🔧 Step 3: Path
 
 The Diffploit implementation currently uses **absolute paths** for referencing data, especially the `PoCAdaptation` directory.
 
@@ -158,7 +211,10 @@ with:
 
 
 
-## ▶️ Step 2: Run Migration for a Specific Exploit
+
+
+
+## ▶️ Run Migration for a Specific Exploit
 
 Once your environment and paths are correctly set up, you can test the migration of a single exploit by directly executing `main_process.py` with a specific CVE ID.
 
@@ -179,7 +235,7 @@ All intermediate logs and final adapted exploits will be saved under the corresp
 
 ------
 
-## ▶️ Step 3: Batch Migration & Ablation Study
+## ▶️ Batch Migration & Ablation Study
 
 To run **batch migration experiments** (including **ablation variants**) across all CVEs and multiple adaptation strategies, execute the following script:
 
@@ -208,15 +264,3 @@ To reproduce an adapted PoC for a specific CVE and version:
 Maven will compile and run the test case. Results will be displayed in the terminal and recorded in `target/surefire-reports/`.
 
 > ✅ Make sure you have Java and Maven properly installed.
-
-
-
-## ⚠️ Disclaimer
-
-This project is intended for **research and academic purposes only**.
-
- All PoCs are derived from publicly available sources.
-
- Please ensure any testing is done in isolated, controlled environments.
-
- **Do not** use these PoCs in production or against systems you do not own or have explicit permission to test.

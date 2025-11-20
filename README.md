@@ -18,7 +18,7 @@ This project is intended for **research and academic purposes only**.
 
 📦 We have uploaded the **complete replication package to Docker Hub**:  [Docker Hub Repository](https://hub.docker.com/repository/docker/chenzirui118/diffploit/general).
 
-💰 Running the experiments using this package required only **CNY ¥2**.
+💰 Running the experiments for RQ1 using this package required only **CNY ¥2**.
 
 ⏱️ With Docker, the setup of Diffploit can be completed **within 5 minutes**.
 

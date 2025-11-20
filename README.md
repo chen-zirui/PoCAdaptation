@@ -20,9 +20,9 @@ This project is intended for **research and academic purposes only**.
 
 💰 Running the experiments using this package required only **CNY ¥2**.
 
-🎉 **If you find Diffploit useful, please consider giving us a ⭐ Star!**
-
 ⏱️ With Docker, the setup of Diffploit can be completed **within 5 minutes**.
+
+🎉 **If you find Diffploit useful, please consider giving us a ⭐ Star!**
 
 ## 🔍 Overview
 

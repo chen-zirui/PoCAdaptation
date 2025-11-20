@@ -95,7 +95,7 @@ In many cases, the original PoCs no longer work in certain library versions even
 > ⏱️ By using Docker, you can reproduce Diffploit **within 5 minutes**.
 
 
-### 📥 Step 1: Pull the Diffploit Image
+### 📥 (Docker) Step 1: Pull the Diffploit Image
 
 Pull the Diffploit image from DockerHub:
 
@@ -103,7 +103,7 @@ Pull the Diffploit image from DockerHub:
 docker pull chenzirui118/diffploit:latest
 ```
 
-### 🚀 Step 2: Start the Diffploit Container
+### 🚀 (Docker) Step 2: Start the Diffploit Container
 
 Run the container and automatically normalize the internal directory layout:
 
@@ -118,7 +118,7 @@ After execution, you will enter an interactive shell in the Diffploit environmen
 All reproducibility procedures can now be performed inside the container.
 
 
-### 🔑 Step 3: LLM API Key Setup
+### 🔑 (Docker) Step 3: LLM API Key Setup
 
 We provide a temporary **DeepSeek API key** for review purposes. To use it, modify the following line in `Diffploit/llm_client.py`:
 
@@ -140,7 +140,7 @@ self.api_key = "sk-13da5a223e92430eb79d38eadda31699"
 
 The following part describes the **local environment setup** required to run Diffploit.
 
-### ✅ Step 1: Prerequisites
+### ✅ (Without Docker) Step 1: Prerequisites
 
 Before running `Diffploit`, please make sure the following dependencies are properly installed (Linux is preferred):
 
@@ -177,7 +177,7 @@ conda activate diffploit-env
 pip install -r requirements.txt
 ```
 
-### 🔑 Step 2: LLM API Key Setup
+### 🔑 (Without Docker) Step 2: LLM API Key Setup
 
 We provide a temporary **DeepSeek API key** for review purposes. To use it, modify the following line in `Diffploit/llm_client.py`:
 
@@ -195,15 +195,13 @@ self.api_key = "sk-13da5a223e92430eb79d38eadda31699"
 
 
 
-### 🔧 Step 3: Path
+### 🔧 (Without Docker) Step 3: Path
 
 The Diffploit implementation currently uses **absolute paths** for referencing data, especially the `PoCAdaptation` directory.
 
 After cloning the project to your local machine, you **must replace all hardcoded occurrences** of `/PoCAdaptation` in the `Diffploit/` source files with your **actual local path**.
 
-### ✅ Example
-
-If you cloned the project to:
+For Example, if you cloned the project to:
 
 ```
 /home/username/projects/PoCAdaptation

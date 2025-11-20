@@ -26,7 +26,7 @@ This project is intended for **research and academic purposes only**.
 
 ## 🔍 Overview
 
-**PoCAdaptation** is a curated repository of **adapted Proof-of-Concept (PoC) exploits** migrated across multiple versions of real-world Java libraries. It aims to identify **false negatives** in existing CVE reports—specifically, vulnerable versions that were previously undetected or misclassified—by adapting PoCs that initially fail due to software evolution.
+**PoCAdaptation** is a curated repository of **adapted Proof-of-Concept (PoC) exploits** migrated across multiple versions of real-world Java libraries. It aims to identify **false negatives** (vulnerable versions that were previously undetected or misclassified) in existing CVE reports  by adapting PoCs that initially fail due to software evolution.
 
 
 
@@ -44,7 +44,7 @@ These failures make it difficult to confirm whether a version is truly unaffecte
 This repository uses PoCs from the dataset published alongside the paper  
 [*"Vision: Identifying Affected Library Versions for Open Source Software Vulnerabilities"*](https://ieeexplore.ieee.org/document/10764837).
 
-In many cases, the original PoCs no longer work in certain library versions—even though those versions may still be vulnerable. By analyzing dependency-level code diffs, we adapt these PoCs to restore their effectiveness and reveal **potentially vulnerable versions that were missed or excluded in the original CVE disclosures**.
+In many cases, the original PoCs no longer work in certain library versions even though those versions may still be vulnerable. By analyzing dependency-level code diffs, we adapt these PoCs to restore their effectiveness and reveal **potentially vulnerable versions that were missed or excluded in the original CVE disclosures**.
 
 
 

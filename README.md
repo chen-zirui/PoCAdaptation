@@ -18,10 +18,11 @@ This project is intended for **research and academic purposes only**.
 
 📦 We have uploaded the **complete replication package to Docker Hub**:  [Docker Hub Repository](https://hub.docker.com/repository/docker/chenzirui118/diffploit/general).
 
-💰 Running the experiments using this package required only **CNY ¥2** in total and reproduced results that are **nearly identical to those reported in the paper in a single run**.
+💰 Running the experiments using this package required only **CNY ¥2**.
 
 🎉 **If you find Diffploit useful, please consider giving us a ⭐ Star!**
 
+⏱️ With Docker, the setup of Diffploit can be completed **within 5 minutes**.
 
 ## 🔍 Overview
 
@@ -91,6 +92,7 @@ In many cases, the original PoCs no longer work in certain library versions—ev
 ## ▶️ Setup Steps of Diffploit
 
 > ⚠️ *Diffploit is containerized via Docker.*
+> ⏱️ By using Docker, you can reproduce Diffploit **within 5 minutes**.
 
 
 ### 📥 Step 1: Pull the Diffploit Image

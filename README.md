@@ -12,6 +12,16 @@ This project is intended for **research and academic purposes only**.
  **Do not** use these PoCs in production or against systems you do not own or have explicit permission to test.
 
 
+## 📰 News
+
+🎉 Our paper has been **accepted to ICSE 2026**! Our paper is available at [Arxiv](https://arxiv.org/abs/2511.12950).
+
+📦 We have uploaded the **complete replication package to Docker Hub**:  [Docker Hub Repository](https://hub.docker.com/repository/docker/chenzirui118/diffploit/general).
+
+💰 Running the experiments using this package required only **CNY ¥2** in total and reproduced results that are **nearly identical to those reported in the paper in a single run**.
+
+🎉 **If you find Diffploit useful, please consider giving us a ⭐ Star!**
+
 
 ## 🔍 Overview
 
@@ -88,7 +98,7 @@ In many cases, the original PoCs no longer work in certain library versions—ev
 Pull the Diffploit image from DockerHub:
 
 ```bash
-docker pull <IMAGE_NAME_FROM_DOCKERHUB>
+docker pull chenzirui118/diffploit:latest
 ```
 
 ### 🚀 Step 2: Start the Diffploit Container
@@ -98,7 +108,7 @@ Run the container and automatically normalize the internal directory layout:
 
 ```bash
 docker run -it --name Diffploit \
-  <IMAGE_NAME_FROM_DOCKERHUB> \
+  chenzirui118/diffploit:latest \
   bash -c "rm -rf /PoCAdaptation && mv /PoCAdaptation-unmount /PoCAdaptation && exec bash"
 ```
 
